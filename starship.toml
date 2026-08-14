@@ -8,6 +8,7 @@ palette = "custom"
 # Main prompt layout: left side on top, status and prompt symbol at the bottom.
 format = """
 [╭─](fg:gray)\
+[](fg:blue)\
 $os\
 $username\
 $sudo\
@@ -25,12 +26,15 @@ $java\
 $python\
 $docker_context\
 $conda\
+[](fg:prev_bg)\
 $fill\
 $battery\
 $memory_usage\
 $cmd_duration\
 $jobs\
+[](fg:bg)\
 $time\
+[](fg:bg)\
 [─╮](fg:gray)
 [│](fg:gray)
 [╰─](fg:gray)\
@@ -120,7 +124,7 @@ deleted = "󰆴 "
 disabled = false
 added_style = "bg:green fg:fg"
 deleted_style = "bg:red fg:fg"
-format = "[+$added]($added_style)[-$deleted ]($deleted_style)"
+format = "[ +$added ]($added_style)[ -$deleted ]($deleted_style)"
 
 [package]
 disabled = false
@@ -206,7 +210,7 @@ style = "fg:yellow"
 disabled = false
 time_format = "%H:%M"
 style = "bg:bg fg:fg"
-format = "[  $time ]($style)"
+format = "[ $time]($style)"
 
 [jobs]
 symbol = "󰠥"
