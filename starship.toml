@@ -1,19 +1,16 @@
-# ~/.config/starship.toml
-# Modern segmented Starship prompt
-# Requires a Nerd Font
+# Minimal prompt setup for a dark terminal.
+# Keep the prompt responsive and easy to read.
+scan_timeout = 30
+command_timeout = 2000
 
 palette = "custom"
 
-# ─────────────────────────────────────────────
-# PROMPT FORMAT
-# ─────────────────────────────────────────────
-# Added box-drawing characters (╭─, ─╮, ╰─)
-# and the $fill module to push duration & time to the right.
-
+# Main prompt layout: left side on top, status and prompt symbol at the bottom.
 format = """
 [╭─](fg:gray)\
 $os\
 $username\
+$sudo\
 $directory\
 $git_branch\
 $git_status\
@@ -29,26 +26,23 @@ $python\
 $docker_context\
 $conda\
 $fill\
+$battery\
 $memory_usage\
 $cmd_duration\
+$jobs\
 $time\
 [─╮](fg:gray)
 [│](fg:gray)
 [╰─](fg:gray)\
+$status\
 $character"""
 
-# ─────────────────────────────────────────────
-# FILL (The continuous connecting line)
-# ─────────────────────────────────────────────
-
+# The bar that fills the space between the left and right sections.
 [fill]
 symbol = "─"
 style = "fg:gray"
 
-# ─────────────────────────────────────────────
-# COLORS
-# ─────────────────────────────────────────────
-
+# Core colors used across the prompt.
 [palettes.custom]
 fg = "#F8FAFC"
 yellow = "#FACC15"
@@ -60,10 +54,7 @@ dark_green = "#15803D"
 dark_red = "#991B1B"
 bg = "#111827"
 gray = "#374151"
-
-# ─────────────────────────────────────────────
-# OS
-# ─────────────────────────────────────────────
+purple = "#9333EA"
 
 [os]
 disabled = false
@@ -80,20 +71,14 @@ Linux = "󰌽"
 Macos = "󰀵"
 Unknown = ""
 
-# ─────────────────────────────────────────────
-# USERNAME
-# ─────────────────────────────────────────────
-
+# Show the current user, even in non-root shells.
 [username]
 show_always = true
 style_user = "bg:blue fg:fg"
 style_root = "bg:red fg:fg"
 format = "[  $user ]($style)"
 
-# ─────────────────────────────────────────────
-# DIRECTORY
-# ─────────────────────────────────────────────
-
+# Path display with a compact truncation style.
 [directory]
 style = "bg:yellow fg:bg"
 format = "[ 󰉋 $path ]($style)"
@@ -109,10 +94,7 @@ truncation_symbol = "…/"
 "Projects" = "󰲋 Projects"
 "Desktop" = "󰇄 Desktop"
 
-# ─────────────────────────────────────────────
-# GIT
-# ─────────────────────────────────────────────
-
+# Git details and status markers.
 [git_branch]
 symbol = ""
 style = "bg:blue fg:fg"
@@ -122,7 +104,6 @@ format = "[ $symbol $branch ]($style)"
 style = "bg:blue fg:fg"
 format = "[$all_status$ahead_behind ]($style)"
 
-# Git status icons
 conflicted = "󰞇 "
 ahead = "󰜷 "
 behind = "󰜮 "
@@ -147,91 +128,68 @@ symbol = "󰏗 "
 style = "bg:purple fg:fg"
 format = "[ $symbol$version ]($style)"
 
-# ─────────────────────────────────────────────
-# C
-# ─────────────────────────────────────────────
-
 [c]
 symbol = ""
 style = "bg:green fg:fg"
 format = "[ $symbol $version ]($style)"
-
-# ─────────────────────────────────────────────
-# RUST
-# ─────────────────────────────────────────────
 
 [rust]
 symbol = ""
 style = "bg:green fg:fg"
 format = "[ $symbol $version ]($style)"
 
-# ─────────────────────────────────────────────
-# GO
-# ─────────────────────────────────────────────
-
 [golang]
 symbol = ""
 style = "bg:green fg:fg"
 format = "[ $symbol $version ]($style)"
-
-# ─────────────────────────────────────────────
-# NODE.JS
-# ─────────────────────────────────────────────
 
 [nodejs]
 symbol = ""
 style = "bg:green fg:fg"
 format = "[ $symbol $version ]($style)"
 
-# ─────────────────────────────────────────────
-# PHP
-# ─────────────────────────────────────────────
-
 [php]
 symbol = ""
 style = "bg:green fg:fg"
 format = "[ $symbol $version ]($style)"
-
-# ─────────────────────────────────────────────
-# JAVA
-# ─────────────────────────────────────────────
 
 [java]
 symbol = ""
 style = "bg:green fg:fg"
 format = "[ $symbol $version ]($style)"
 
-# ─────────────────────────────────────────────
-# PYTHON
-# ─────────────────────────────────────────────
-
 [python]
 symbol = ""
 style = "bg:green fg:fg"
 format = "[ $symbol $version ]($style)"
-
-# ─────────────────────────────────────────────
-# DOCKER
-# ─────────────────────────────────────────────
 
 [docker_context]
 symbol = ""
 style = "bg:gray fg:fg"
 format = "[ $symbol $context ]($style)"
 
-# ─────────────────────────────────────────────
-# CONDA
-# ─────────────────────────────────────────────
-
 [conda]
 symbol = "🅒"
 style = "bg:gray fg:fg"
 format = "[ $symbol $environment ]($style)"
 
+# Battery state and memory usage for the right side of the prompt.
+[battery]
+disabled = false
+format = "[ $symbol$percentage ]($style)"
 
-# ─────────────────────────────────────────────
-# PERFORMANCE & SYSTEM (Right Aligned)
-# ─────────────────────────────────────────────
+[[battery.display]]
+threshold = 20
+style = "bold fg:red"
+
+[[battery.display]]
+threshold = 50
+style = "fg:yellow"
+
+[[battery.display]]
+threshold = 100
+style = "fg:green"
+
 [memory_usage]
 disabled = false
 threshold = 60
@@ -250,9 +208,16 @@ time_format = "%H:%M"
 style = "bg:bg fg:fg"
 format = "[  $time ]($style)"
 
-# ─────────────────────────────────────────────
-# UTILS & LINE BREAK
-# ─────────────────────────────────────────────
+[jobs]
+symbol = "󰠥"
+style = "bg:bg fg:blue"
+format = "[ $symbol $number ]($style)"
+
+[sudo]
+disabled = false
+symbol = "󰌆"
+style = "bold bg:bg fg:red"
+format = "[ $symbol ]($style)"
 
 [line_break]
 disabled = false
@@ -265,29 +230,18 @@ style = "bold fg:red"
 success_symbol = "󰄬"
 map_symbol = true
 
-[battery]
-disabled = false
-format = "[$symbol$percentage]($style) "
-
-[[battery.display]]
-threshold = 20
-style = "bold fg:red"
-
-[[battery.display]]
-threshold = 50
-style = "fg:yellow"
-
-[[battery.display]]
-threshold = 100
-style = "fg:green"
-
+# Extra shell-specific indicators for the active terminal.
 [shell]
 disabled = false
 format = "[$indicator]($style) "
+bash_indicator = "[bash](bold green)"
+zsh_indicator = "[zsh](bold cyan)"
+fish_indicator = "[fish](bold blue)"
+powershell_indicator = "[pwsh](bold purple)"
+unknown_indicator = "[shell](bold yellow)"
 
-# ─────────────────────────────────────────────
-# PROMPT CHARACTER
-# ─────────────────────────────────────────────
+# Small prompt polish for multi-line shell input.
+continuation_prompt = "[∙](bold fg:gray) "
 
 [character]
 disabled = false
