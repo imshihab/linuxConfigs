@@ -1,0 +1,247 @@
+# ~/.config/starship.toml
+# Modern segmented Starship prompt
+# Requires a Nerd Font
+
+palette = "custom"
+
+format = """
+$os\
+$username\
+$directory\
+$git_branch\
+$git_status\
+$c\
+$rust\
+$golang\
+$nodejs\
+$php\
+$java\
+$python\
+$docker_context\
+$conda\
+$time\
+$line_break\
+$character"""
+
+# ─────────────────────────────────────────────
+# COLORS
+# ─────────────────────────────────────────────
+
+[palettes.custom]
+fg         = "#F8FAFC"
+yellow     = "#FACC15"
+blue       = "#2563EB"
+green      = "#22C55E"
+red        = "#DC2626"
+dark_blue  = "#1D4ED8"
+dark_green = "#15803D"
+dark_red   = "#991B1B"
+bg         = "#111827"
+gray       = "#374151"
+
+# ─────────────────────────────────────────────
+# OS
+# ─────────────────────────────────────────────
+
+[os]
+disabled = false
+style = "bg:blue fg:fg"
+format = "[ $symbol ]($style)"
+
+[os.symbols]
+Windows = "󰍲"
+Ubuntu = "󰕈"
+Fedora = "󰣛"
+Arch = "󰣇"
+Debian = "󰣚"
+Linux = "󰌽"
+Macos = "󰀵"
+Unknown = ""
+
+# ─────────────────────────────────────────────
+# USERNAME
+# ─────────────────────────────────────────────
+
+[username]
+show_always = true
+style_user = "bg:blue fg:fg"
+style_root = "bg:red fg:fg"
+format = "[  $user ]($style)"
+
+# ─────────────────────────────────────────────
+# DIRECTORY
+# ─────────────────────────────────────────────
+
+[directory]
+style = "bg:yellow fg:bg"
+format = "[ 󰉋 $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
+
+[directory.substitutions]
+"Documents" = "󰈙 Documents"
+"Downloads" = "󰉍 Downloads"
+"Music" = "󰝚 Music"
+"Pictures" = "󰉏 Pictures"
+"Videos" = "󰕧 Videos"
+"Projects" = "󰲋 Projects"
+"Desktop" = "󰇄 Desktop"
+
+# ─────────────────────────────────────────────
+# GIT
+# ─────────────────────────────────────────────
+
+[git_branch]
+symbol = ""
+style = "bg:blue fg:fg"
+format = "[ $symbol $branch ]($style)"
+
+[git_status]
+style = "bg:blue fg:fg"
+format = "[ $all_status$ahead_behind ]($style)"
+
+# Git status icons
+conflicted = "󰞇 "
+ahead = "󰜷 "
+behind = "󰜮 "
+diverged = "󰹹 "
+up_to_date = "󰄬 "
+untracked = "󰋖 "
+stashed = "󰏗 "
+modified = "󰏫 "
+staged = "󰐕 "
+renamed = "󰁕 "
+deleted = "󰆴 "
+
+# ─────────────────────────────────────────────
+# C
+# ─────────────────────────────────────────────
+
+[c]
+symbol = ""
+style = "bg:green fg:fg"
+format = "[ $symbol $version ]($style)"
+
+# ─────────────────────────────────────────────
+# RUST
+# ─────────────────────────────────────────────
+
+[rust]
+symbol = ""
+style = "bg:green fg:fg"
+format = "[ $symbol $version ]($style)"
+
+# ─────────────────────────────────────────────
+# GO
+# ─────────────────────────────────────────────
+
+[golang]
+symbol = ""
+style = "bg:green fg:fg"
+format = "[ $symbol $version ]($style)"
+
+# ─────────────────────────────────────────────
+# NODE.JS
+# ─────────────────────────────────────────────
+
+[nodejs]
+symbol = ""
+style = "bg:green fg:fg"
+format = "[ $symbol $version ]($style)"
+
+# ─────────────────────────────────────────────
+# PHP
+# ─────────────────────────────────────────────
+
+[php]
+symbol = ""
+style = "bg:green fg:fg"
+format = "[ $symbol $version ]($style)"
+
+# ─────────────────────────────────────────────
+# JAVA
+# ─────────────────────────────────────────────
+
+[java]
+symbol = ""
+style = "bg:green fg:fg"
+format = "[ $symbol $version ]($style)"
+
+# ─────────────────────────────────────────────
+# PYTHON
+# ─────────────────────────────────────────────
+
+[python]
+symbol = ""
+style = "bg:green fg:fg"
+format = "[ $symbol $version ]($style)"
+
+# ─────────────────────────────────────────────
+# DOCKER
+# ─────────────────────────────────────────────
+
+[docker_context]
+symbol = ""
+style = "bg:gray fg:fg"
+format = "[ $symbol $context ]($style)"
+
+# ─────────────────────────────────────────────
+# CONDA
+# ─────────────────────────────────────────────
+
+[conda]
+symbol = "🅒"
+style = "bg:gray fg:fg"
+format = "[ $symbol $environment ]($style)"
+
+# ─────────────────────────────────────────────
+# TIME
+# ─────────────────────────────────────────────
+
+[time]
+disabled = false
+time_format = "%H:%M"
+style = "bg:bg fg:fg"
+format = "[  $time ]($style)"
+
+# ─────────────────────────────────────────────
+# LINE BREAK
+# ─────────────────────────────────────────────
+
+[line_break]
+disabled = false
+
+[battery]
+disabled = false
+format = "[$symbol$percentage]($style) "
+
+[[battery.display]]
+threshold = 20
+style = "bold fg:red"
+
+[[battery.display]]
+threshold = 50
+style = "fg:yellow"
+
+[[battery.display]]
+threshold = 100
+style = "fg:green"
+
+[cmd_duration]
+min_time = 2000
+format = "[󱎫 $duration]($style) "
+style = "fg:yellow"
+
+[shell]
+disabled = false
+format = "[$indicator]($style) "
+
+# ─────────────────────────────────────────────
+# PROMPT CHARACTER
+# ─────────────────────────────────────────────
+
+[character]
+disabled = false
+success_symbol = '[\$](bold fg:green)'
+error_symbol = '[\$](bold fg:red)'
+vimcmd_symbol = '[\$](bold fg:green)'
