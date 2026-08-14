@@ -17,6 +17,8 @@ $username\
 $directory\
 $git_branch\
 $git_status\
+$git_metrics\
+$package\
 $c\
 $rust\
 $golang\
@@ -27,6 +29,7 @@ $python\
 $docker_context\
 $conda\
 $fill\
+$memory_usage\
 $cmd_duration\
 $time\
 [─╮](fg:gray)
@@ -47,16 +50,16 @@ style = "fg:gray"
 # ─────────────────────────────────────────────
 
 [palettes.custom]
-fg         = "#F8FAFC"
-yellow     = "#FACC15"
-blue       = "#2563EB"
-green      = "#22C55E"
-red        = "#DC2626"
-dark_blue  = "#1D4ED8"
+fg = "#F8FAFC"
+yellow = "#FACC15"
+blue = "#2563EB"
+green = "#22C55E"
+red = "#DC2626"
+dark_blue = "#1D4ED8"
 dark_green = "#15803D"
-dark_red   = "#991B1B"
-bg         = "#111827"
-gray       = "#374151"
+dark_red = "#991B1B"
+bg = "#111827"
+gray = "#374151"
 
 # ─────────────────────────────────────────────
 # OS
@@ -117,7 +120,7 @@ format = "[ $symbol $branch ]($style)"
 
 [git_status]
 style = "bg:blue fg:fg"
-format = "[ $all_status$ahead_behind ]($style)"
+format = "[$all_status$ahead_behind ]($style)"
 
 # Git status icons
 conflicted = "󰞇 "
@@ -131,6 +134,18 @@ modified = "󰏫 "
 staged = "󰐕 "
 renamed = "󰁕 "
 deleted = "󰆴 "
+
+[git_metrics]
+disabled = false
+added_style = "bg:green fg:fg"
+deleted_style = "bg:red fg:fg"
+format = "[+$added]($added_style)[-$deleted ]($deleted_style)"
+
+[package]
+disabled = false
+symbol = "󰏗 "
+style = "bg:purple fg:fg"
+format = "[ $symbol$version ]($style)"
 
 # ─────────────────────────────────────────────
 # C
@@ -213,9 +228,21 @@ symbol = "🅒"
 style = "bg:gray fg:fg"
 format = "[ $symbol $environment ]($style)"
 
+
 # ─────────────────────────────────────────────
-# TIME
+# PERFORMANCE & SYSTEM (Right Aligned)
 # ─────────────────────────────────────────────
+[memory_usage]
+disabled = false
+threshold = 60
+symbol = "󰍛 "
+style = "fg:yellow"
+format = "[ $symbol$ram_pct ]($style)"
+
+[cmd_duration]
+min_time = 2000
+format = "[ 󱎫 $duration ]($style)"
+style = "fg:yellow"
 
 [time]
 disabled = false
@@ -229,6 +256,14 @@ format = "[  $time ]($style)"
 
 [line_break]
 disabled = false
+
+[status]
+disabled = false
+format = '[ \[ $symbol $status \] ]($style)'
+symbol = "󰅙"
+style = "bold fg:red"
+success_symbol = "󰄬"
+map_symbol = true
 
 [battery]
 disabled = false
@@ -245,12 +280,6 @@ style = "fg:yellow"
 [[battery.display]]
 threshold = 100
 style = "fg:green"
-
-[cmd_duration]
-min_time = 2000
-# Removed the trailing space you had previously to ensure visual balance against the right border
-format = "[ 󱎫 $duration ]($style)"
-style = "fg:yellow"
 
 [shell]
 disabled = false
