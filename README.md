@@ -9,7 +9,8 @@ This repo is meant to keep Linux setup files in one place so they are easy to re
 Right now:
 
 - `starship.toml`: Starship prompt configuration
-- `terminal.md`: Linux setup guide for installing Starship and using this config
+- `fastfetch/`: Fastfetch configuration and custom logo
+- `terminal.md`: Linux setup guide for installing and using Starship and Fastfetch
 
 Over time, this repo can include other Linux configs such as:
 
@@ -25,12 +26,15 @@ Over time, this repo can include other Linux configs such as:
 .
 ├── README.md
 ├── starship.toml
-└── terminal.md
+├── terminal.md
+└── fastfetch/
+	├── config.jsonc
+	└── logo.txt
 ```
 
 ## Usage
 
-For the current Starship setup, follow the steps in `terminal.md`.
+For the current Starship and Fastfetch setup, follow the steps in `terminal.md`.
 
 ## Goal
 

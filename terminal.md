@@ -1,6 +1,6 @@
-# Use this starship.toml on Linux
+# Linux terminal setup
 
-This guide shows how to install Starship and use the `starship.toml` file from this workspace.
+This guide shows how to install Starship and Fastfetch and use the configurations from this workspace.
 
 ## 1) Install icon font support (required)
 
@@ -91,3 +91,68 @@ Then open a new terminal tab/window. You should see the prompt style from this c
 - If prompt does not change, make sure your shell startup file was updated (`~/.bashrc`, `~/.zshrc`, or Fish config).
 - Make sure `~/.config/starship.toml` exists.
 - Restart the terminal after setup.
+
+## Fastfetch
+
+Fastfetch displays system information when a terminal starts. This repository includes a JSONC configuration and a text logo that Fastfetch loads from `~/.config/fastfetch`.
+
+### 1) Install Fastfetch
+
+Use your distribution's package manager:
+
+```bash
+# Fedora
+sudo dnf install fastfetch
+
+# Arch
+sudo pacman -S fastfetch
+
+# Ubuntu/Debian
+sudo apt install fastfetch
+```
+
+If your distribution does not provide a recent package, follow the installation instructions on the [Fastfetch repository](https://github.com/fastfetch-cli/fastfetch).
+
+### 2) Install the configuration
+
+From this repository folder, copy both Fastfetch files:
+
+```bash
+mkdir -p ~/.config/fastfetch
+cp ./fastfetch/config.jsonc ~/.config/fastfetch/config.jsonc
+cp ./fastfetch/logo.txt ~/.config/fastfetch/logo.txt
+```
+
+To keep the installed files linked to this repository instead, use:
+
+```bash
+mkdir -p ~/.config/fastfetch
+ln -sf "$(pwd)/fastfetch/config.jsonc" ~/.config/fastfetch/config.jsonc
+ln -sf "$(pwd)/fastfetch/logo.txt" ~/.config/fastfetch/logo.txt
+```
+
+The `logo.source` setting in `config.jsonc` points to `~/.config/fastfetch/logo.txt`, so keep the logo at that path.
+
+### 3) Verify
+
+```bash
+fastfetch --config ~/.config/fastfetch/config.jsonc
+```
+
+You should see the custom logo and hardware, software, uptime, and system-age sections.
+
+### 4) Run Fastfetch when a shell starts (optional)
+
+Add this line to the startup file for the shell you use:
+
+```bash
+fastfetch
+```
+
+For Bash, add it to `~/.bashrc`; for Zsh, add it to `~/.zshrc`; for Fish, add it to `~/.config/fish/config.fish`. Open a new terminal after saving the file.
+
+### Fastfetch troubleshooting
+
+- Make sure both `~/.config/fastfetch/config.jsonc` and `~/.config/fastfetch/logo.txt` exist.
+- If the logo is missing, verify that `logo.source` points to `~/.config/fastfetch/logo.txt`.
+- If icons appear as boxes, select a Nerd Font in your terminal profile and confirm the font is installed.
