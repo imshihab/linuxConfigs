@@ -59,6 +59,42 @@ export PATH="$HOME/.npm-global/bin:$PATH"
 
 These should stay in a local `.zshrc` file, not in the shared repo version.
 
+## VS Code configurations
+
+### Use Ptyxis as the external terminal
+
+VS Code's `terminal.external.linuxExec` setting does not pass command-line arguments. Because Ptyxis uses DBus for single-instance behavior, it can open in the home directory instead of the current project folder.
+
+Use a wrapper script to capture the current directory and pass it to Ptyxis with `--new-window` and `-d`:
+
+1. Create the wrapper script:
+
+   ```bash
+   mkdir -p ~/.local/bin
+   touch ~/.local/bin/ptyxis-vscode
+   ```
+
+2. Add this code to `~/.local/bin/ptyxis-vscode`:
+
+   ```bash
+   #!/bin/bash
+   exec ptyxis --new-window -d "$(pwd)"
+   ```
+
+3. Make the script executable:
+
+   ```bash
+   chmod +x ~/.local/bin/ptyxis-vscode
+   ```
+
+4. Add this setting to VS Code's `settings.json`:
+
+   ```json
+   "terminal.external.linuxExec": "/home/YOUR_USERNAME/.local/bin/ptyxis-vscode"
+   ```
+
+Replace `YOUR_USERNAME` with your actual Linux username. VS Code does not always expand `~` in this setting.
+
 ## Repo contents
 
 ```text
