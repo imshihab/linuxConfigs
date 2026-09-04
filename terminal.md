@@ -156,3 +156,54 @@ For Bash, add it to `~/.bashrc`; for Zsh, add it to `~/.zshrc`; for Fish, add it
 - Make sure both `~/.config/fastfetch/config.jsonc` and `~/.config/fastfetch/logo.txt` exist.
 - If the logo is missing, verify that `logo.source` points to `~/.config/fastfetch/logo.txt`.
 - If icons appear as boxes, select a Nerd Font in your terminal profile and confirm the font is installed.
+
+## tmux
+
+tmux lets you keep multiple terminal panes and windows in one persistent session.
+
+### 1) Install tmux
+
+Use your distribution's package manager:
+
+```bash
+# Fedora
+sudo dnf install tmux
+```
+
+### 2) Start a session
+
+```bash
+tmux new -s work
+```
+
+Detach from the session with `Ctrl+b`, then `d`. Reconnect later with:
+
+```bash
+tmux attach -t work
+```
+
+### 3) Enable mouse mode
+
+By default, tmux is keyboard-driven. If clicking another pane or a window tab does not focus it, enable mouse support from the tmux command prompt:
+
+1. Press `Ctrl+b`.
+2. Press `:`.
+3. Type `set -g mouse on` and press **Enter**.
+
+Mouse mode lets you click to focus panes and windows, resize panes, and scroll through pane history.
+
+### 4) Make mouse mode permanent
+
+Add this setting to `~/.tmux.conf`:
+
+```tmux
+set -g mouse on
+```
+
+Reload the configuration in an active tmux session:
+
+```bash
+tmux source-file ~/.tmux.conf
+```
+
+You can also reload it from the tmux command prompt with `Ctrl+b`, `:`, and `source-file ~/.tmux.conf`.
